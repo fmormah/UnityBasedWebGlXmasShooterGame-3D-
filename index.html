@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Make It Rein</title>
+ 
+  <link href="main.css" rel="stylesheet">
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+
+
+  <script>
+    UnityLoader.compatibilityCheck = function(e, t, r) {
+      t();
+    };
+    var gameInstance = UnityLoader.instantiate("gameContainer", "Build/test4.json", {
+      onProgress: UnityProgress
+    });
+  </script>
+
+  <style>
+
+
+@font-face {
+  font-family: 'bigJohnPro';
+  src: url('../fonts/BigJohnPRO-Bold.otf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+    html {
+      min-height: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #062538;
+      text-align: center;
+      background-image: url('TemplateData/pile.png');
+      background-size: contain;
+      background-position: center bottom;
+      background-repeat: no-repeat;
+      min-height: 100%;
+      height: 100vh;
+    }
+
+    .webgl-content * {
+      border: 0;
+      /* margin: 0; */
+      /* padding: 0; */
+    }
+
+    .webgl-content {
+      position: relative;
+      z-index: 100;
+      padding-top: 220px;
+    }
+
+    .webgl-content .logo,
+    .progress {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+
+    .webgl-content .logo {
+      background: url('progressLogo.Light.png') no-repeat center / contain;
+      width: 154px;
+      height: 130px;
+    }
+
+    .webgl-content .progress {
+      height: 18px;
+      width: 141px;
+      margin-top: 90px;
+    }
+
+    .webgl-content .progress .empty {
+      background: url('progressEmpty.Light.png') no-repeat right / cover;
+      float: right;
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+    }
+
+    .webgl-content .progress .full {
+      background: url('progressFull.Light.png') no-repeat left / cover;
+      float: left;
+      width: 0%;
+      height: 100%;
+      display: inline-block;
+    }
+
+    .webgl-content .logo.Dark {
+      background-image: url('progressLogo.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .empty {
+      background-image: url('progressEmpty.Dark.png');
+    }
+
+    .webgl-content .progress.Dark .full {
+      background-image: url('progressFull.Dark.png');
+    }
+
+    .webgl-content .footer {
+      margin-top: 5px;
+      height: 38px;
+      line-height: 38px;
+      font-family: Helvetica, Verdana, Arial, sans-serif;
+      font-size: 18px;
+      display: none;
+    }
+
+    .webgl-content .footer .webgl-logo,
+    .title,
+    .fullscreen {
+      height: 100%;
+      display: inline-block;
+      background: transparent center no-repeat;
+    }
+
+    .webgl-content .footer .webgl-logo {
+      background-image: url('webgl-logo.png');
+      width: 204px;
+      float: left;
+    }
+
+    .webgl-content .footer .title {
+      margin-right: 10px;
+      float: right;
+    }
+
+    .webgl-content .footer .fullscreen {
+      background-image: url('fullscreen.png');
+      width: 38px;
+      float: right;
+    }
+
+    #balls {
+      position: absolute;
+      width: 270px;
+      left: 65px;
+      top: 0;
+    }
+
+    #balls2 {
+      position: absolute;
+      width: 120px;
+      left: 400px;
+      top: 0;
+    }
+
+    #balls3 {
+      position: absolute;
+      width: 200px;
+      right: 250px;
+      top: 0;
+    }
+
+    #balls4 {
+      position: absolute;
+      width: 170px;
+      right: 40px;
+      top: 0;
+    }
+
+    #intro {
+      position: relative;
+      color: white;
+      font-size: 19px;
+      line-height: 25px;
+      font-family: 'Arial';
+      margin: 0 20%;
+      padding: 10px;
+    }
+
+    #title {
+      font-family: 'bigJohnPro';
+      position: relative;
+      font-size: 45px;
+      color: ghostwhite;
+      margin: 40px;
+    }
+
+    #pile {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    #intro2 {
+      position: relative;
+      color: white;
+      font-size: 19px;
+      line-height: 25px;
+      font-family: 'Arial';
+      margin: 0 20%;
+      /* padding-top: 100px; */
+      padding-bottom: 20px;
+      text-shadow: -1px 0 #0f2d3e, 0 1px #0f2d3e, 1px 0 #0f2d3e, 0 -1px #0f2d3e;
+    }
+
+    #snow-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    #gameContainer {
+      margin: 0 auto !important;
+    }
+
+    #shelter {
+      position: relative;
+      width: 100px;
+      padding-bottom: 10px;
+    }
+
+    #hs_table{
+      position: absolute; top:220px; left:50%; transform: translateX(-50%); background-color:#062538; z-index: 3; width: 960px; height: 485px; 
+    }
+
+    .lbox{
+      position: absolute;
+      width: 100vw;
+      height: 100vh;
+      left:0;
+      top:0;
+      z-index:1000;
+      /* padding-top:20vh; */
+    }
+    .lbox:after{
+      content: '';
+      position: absolute;
+      opacity: 0.9;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      background-color: #062538;
+      z-index: -1;
+      cursor: pointer;
+    }
+    .deer-t{
+      width: 200px;
+      margin:20px auto;
+    }
+    .close-button{
+      position: absolute;
+      right: 25px;
+      top: 25px;
+      font-size: 30px;
+      text-align: center;
+      color: white;
+      font-family: Arial;
+      line-height: 15px;
+    }
+    .close-button span{
+      font-size:10px;
+    }
+    #gameContainer{
+      max-width: 960px;
+      width: 100% !important;
+      height: auto;
+      padding: 0px;
+      margin: 0px auto;
+      border: 0px;
+      position: relative;
+    }
+
+    .bigBut{
+      font-size: 24px;
+background-color: #f39200;
+border: 2px solid #f39200;
+min-height: 58px;
+display: inline-block;
+padding: 0.6em 1em;
+margin-top: 40px;
+position: relative;
+z-index: 0;
+min-width: 246px;
+    }
+    
+    @media only screen and (max-width: 600px) {
+      #title{
+        font-size: 18px;
+        
+      }
+      #intro{
+        margin: 0 5%;
+        font-size: 15px;
+        line-height: 18px;
+        padding-top:0;
+      }
+      #intro2{
+        margin: 0 5%;
+        font-size: 15px;
+        line-height: 18px;
+        padding-top:0;
+      }
+      .deer-t{
+        width: 100px;
+        margin: -10px auto 0px;
+      }
+      #balls{
+        display:none !important;
+      }
+      #balls2{
+        display:none!important;
+      }
+      #balls3{
+        display:none!important;
+      }
+      #balls4{
+        display:none!important;
+      }
+      #gameContainer{
+        height: 100vh !important;
+        width: 100vw !important;
+        
+        
+      }
+
+      #hs_table{
+        top:0;
+        left:0;
+        transform: translateX(0%);
+        height: auto !important;
+        min-height: 100vh !important;
+        width: 100vw !important;
+      }
+
+      .webgl-content{
+        padding-top:0;
+      }
+      h1{
+        font-size: 40px;
+        padding-top: 20px;
+      }
+      h3{
+        font-size: 18px;
+        
+      }
+      .mt10m{
+        margin-top:10px !important
+      }
+
+    }
+
+    @media only screen and (max-width: 320px) {
+
+      
+
+      #title{
+       
+        margin:20px;
+      }
+      h1{
+        
+        padding-top: 10px;
+      }
+      .table > tbody > tr > th{
+        padding:3px;
+      }
+      .table > thead:first-child > tr:first-child > th{
+        padding:3px;
+      }
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <img id="balls" src="TemplateData/Hue_Saturation 1.png" />
+  <img id="balls2" src="TemplateData/Hue_Saturation 1.png" />
+  <img id="balls3" src="TemplateData/Hue_Saturation 1.png" />
+  <img id="balls4" src="TemplateData/Hue_Saturation 1.png" />
+
+
+
+  <canvas id="snow-canvas"></canvas>
+
+
+  <!-- <p id="title">Make It Rein</p> -->
+  <!-- <img id="pile" src="TemplateData/pile.png" alt=""> -->
+  <!-- <img id="icet" src="TemplateData/icet.png" alt=""> -->
+
+  <div onclick="removelb()" class="lbox">
+      <!-- <div class="close-button">
+        X<br/>
+        <span>close</span>
+      </div> -->
+
+      <p id="title">MAKE IT REIN</p>
+
+      <p id="intro">Our deer friend, Buck, is trying to catch up to Father Christmas and his friends to deliver a cheque to
+        his favourite charity, but there are so many obstacles in his way.
+      </p>
+  
+      <img class="deer-t" src="http://teamspiritdev.co.uk/francis/xmascardpoc/deer-t.png"/>
+      
+      <p id="intro2"> Here at Team(Christmas)spirit, we’re lending a hand too and are going to match the amount the highest
+        scorer gets*
+        and donate it to Shelter in the winner’s name.<br>
+        
+      </p>  
+      <img id="shelter" src="images/shelter.png" alt="">
+      <p>
+        <span style="font-size: 12px; ">*Up to <b>£500</b> – wowzers!</span>
+      </p>
+
+      <button class="bigBut">
+          Ready? Let’s fly!
+      </button>
+    </div>
+ 
+  <div class="webgl-content" style="position: relative;">
+     
+    <div id="gameContainer" style="width: 960px; height: auto;">
+      
+
+    </div>
+    <div class="footer">
+      <div class="webgl-logo"></div>
+      <div class="fullscreen" onclick="gameInstance.SetFullscreen(1)"></div>
+      <div class="title">runners2</div>
+    </div>
+
+    <div id="hs_table" class="hidden">
+        <div class="container-fluid">
+
+            <div class="row text-center ">
+                <div class="col-xs-12 col-md-8 col-md-offset-0  ">
+                    <h1>Score <span id="score"></span></h1>
+                </div>
+            </div>
+
+            <div class="row mt20 mt10m">
+                <div class="col-xs-12 col-md-6 col-md-offset-0">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableData">
+    
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-xs-12 col-md-6 col-md-offset-0 text-left">
+                    <div id="congrats" class="hidden">
+                        
+                        <h3>Congratulations! You made the top five.<br><br>And a message to you who reins supreme:<br>we’ll
+                            donate your high score to Shelter in your name.</h3><br>
+                        <!-- <img src="images/shelter.png" width="100" /><br> -->
+                        <p class="mt20 mt10m">For Ts and Cs, see <a
+                                href="https://www.teamspirit.uk.com/privacy-policy">teamspirit.com/terms</a></p><br />
+                    
+                        <form id="myForm" class="needs-validation">
+                            
+                                    <input name="score" id="ttrryy" type="hidden" value="233">
+    
+                                    <div class="form-group">
+                                        <!-- <label for="myName">Enter your name:</label> -->
+                                        <input id="myName" name="name" class="form-control form-control-lg"
+                                            placeholder="Enter Name" required  contentEditable="true">
+                                        
+                                    </div>
+                                <!-- </div>
+                                <div class="col-xs-12 col-md-6"> -->
+                                    <div class="form-group">
+                                        <!-- <label for="myEmail">Enter your email:</label> -->
+                                        <input type="email" class="form-control form-control-lg" placeholder="Enter email"
+                                            id="myEmail" name="email" required  contentEditable="true">
+                                            
+                                    </div>
+                                    <button type="submit" name="submit" class="btn-primary btn-lg mt20 mt10m">Add me to the
+                                        leaderboard</button>
+                               
+                        </form>
+                            
+                    </div>
+            
+            
+                    <div id="unlucky" class="hidden">
+                        
+                                <h3>Unlucky! You didn't make the top five.<br><br>Try again to rein supreme<br>If you do we’ll
+                                    donate your high score to Shelter in your name.</h3><br>
+                                <!-- <img src="images/shelter.png" width="100" /><br> -->
+                                <button type="submit" onclick="restart()" class="btn-primary btn-lg mt20">Replay</button>
+            
+                            
+                    </div>
+            
+                    <div id="replay" class="hidden">
+                      
+                                <h3>Try again to rein supreme<br>If you do we’ll
+                                    donate your high score to Shelter in your name.</h3><br>
+                                <!-- <img src="images/shelter.png" width="100" /><br> -->
+                                <button type="submit" onclick="restart()" class="btn-primary btn-lg mt20">Replay</button>
+            
+                            
+                    </div>
+
+                </div>
+            </div>
+            
+
+    
+    
+    
+        </div>
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+</body>
+<script>
+  window.initSnow = function () {
+    //canvas init
+    var canvas = document.getElementById("snow-canvas");
+    var ctx = canvas.getContext("2d");
+
+    //canvas dimensions
+    var W = window.innerWidth;
+    var H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+
+    //snowflake particles
+    var mp = 45; //max particles
+    var particles = [];
+    for (var i = 0; i < mp; i++) {
+      particles.push({
+        x: Math.random() * W, //x-coordinate
+        y: Math.random() * H, //y-coordinate
+        r: Math.random() * 4 + 1, //radius
+        d: Math.random() * mp //density
+      })
+    }
+
+    //Lets draw the flakes
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+
+      ctx.fillStyle = "rgba(255, 255, 255, 0.75)";
+      ctx.beginPath();
+      for (var i = 0; i < mp; i++) {
+        var p = particles[i];
+        ctx.moveTo(p.x, p.y);
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2, true);
+      }
+      ctx.fill();
+      update();
+    }
+
+    //Function to move the snowflakes
+    //angle will be an ongoing incremental flag. Sin and Cos functions will be applied to it to create vertical and horizontal movements of the flakes
+    var angle = 0;
+
+    function update() {
+      angle += 0.01;
+      for (var i = 0; i < mp; i++) {
+        var p = particles[i];
+        //Updating X and Y coordinates
+        //We will add 1 to the cos function to prevent negative values which will lead flakes to move upwards
+        //Every particle has its own density which can be used to make the downward movement different for each flake
+        //Lets make it more random by adding in the radius
+        p.y += Math.cos(angle + p.d) + 1 + p.r / 2;
+        p.x += Math.sin(angle) * 2;
+
+        //Sending flakes back from the top when it exits
+        //Lets make it a bit more organic and let flakes enter from the left and right also.
+        if (p.x > W + 5 || p.x < -5 || p.y > H) {
+          if (i % 3 > 0) //66.67% of the flakes
+          {
+            particles[i] = {
+              x: Math.random() * W,
+              y: -10,
+              r: p.r,
+              d: p.d
+            };
+          } else {
+            //If the flake is exitting from the right
+            if (Math.sin(angle) > 0) {
+              //Enter from the left
+              particles[i] = {
+                x: -5,
+                y: Math.random() * H,
+                r: p.r,
+                d: p.d
+              };
+            } else {
+              //Enter from the right
+              particles[i] = {
+                x: W + 5,
+                y: Math.random() * H,
+                r: p.r,
+                d: p.d
+              };
+            }
+          }
+        }
+      }
+    }
+
+    //animation loop
+    setInterval(draw, 33);
+  }
+  window.initSnow();
+</script>
+
+<script>
+   
+        function restart(){
+          document.getElementById("hs_table").classList.add("hidden");
+          gameInstance.SendMessage('staticObject', 'restartGame');
+        }
+
+        function getTable(replay) {
+
+          document.getElementById("myForm").submit.disabled = false;
+
+          console.log("score :",parseInt(replay))
+
+          document.getElementById("hs_table").classList.remove("hidden");
+
+            var tableData = "";
+            document.getElementById("tableData").innerHTML = ""
+            fetch('/xmas2019/scores').then(response => {
+                response.json().then(json => {
+                    count = 0;
+                    json = JSON.parse(json);
+                    console.log("json", json)
+
+                    for (var key in json) {
+                        if (count > 4) {
+                            break;
+                        }
+                        // Object.keys(json).forEach(function (key) {
+                        tableData += '<tr><th scope="row">' + json[key][0] +
+                            '</th><th>' + parseInt(json[key][1]) +
+                            '</th></tr>';
+
+                        if (parseInt(json[key][1]) < lowestScore) {
+                            lowestScore = parseInt(json[key][1])
+                        }
+                        console.log(key, json[key][1], lowestScore);
+                        count++;
+                    }
+                    document.getElementById("tableData").innerHTML = tableData;
+
+                    if(parseInt(replay)>0){
+                      var score = (parseInt(replay) ? parseInt(replay) : '320');
+                    }
+                    
+
+                    if (isNaN(replay)) {
+                        document.getElementById("congrats").classList.add("hidden");
+                        document.getElementById("unlucky").classList.add("hidden");
+                        document.getElementById("replay").classList.remove("hidden");
+                        return;
+                    }
+
+                    document.getElementById("score").innerHTML = score;
+                    document.getElementById("ttrryy").value = score;
+
+                    console.log(score, lowestScore)
+                    if (score > lowestScore) {
+                        document.getElementById("replay").classList.add("hidden");
+                        document.getElementById("unlucky").classList.add("hidden");
+                        document.getElementById("congrats").classList.remove("hidden");
+                    } else {
+                        document.getElementById("replay").classList.add("hidden");
+                        document.getElementById("unlucky").classList.remove("hidden");
+                        document.getElementById("congrats").classList.add("hidden");
+                    }
+                });
+            });
+        }
+
+        // getTable();
+
+
+        window.addEventListener("load", function () {
+
+        lowestScore = 450000;
+
+        const serialize_form = form => JSON.stringify(
+            Array.from(new FormData(form).entries())
+            .reduce((m, [key, value]) => Object.assign(m, {
+                [key]: value
+            }), {})
+        );
+
+        function sendData(jsonStr) {
+            const XHR = new XMLHttpRequest();
+
+            // Bind the FormData object and the form element
+            const FD = new FormData(form);
+
+            // Define what happens on successful data submission
+            XHR.addEventListener("load", function (event) {
+                console.log("Success" + event.target.responseText);
+                getTable("replay");
+            });
+
+            // Define what happens in case of error
+            XHR.addEventListener("error", function (event) {
+                console.log('Oops! Something went wrong.' + event.error);
+            });
+
+            // Set up our request
+            XHR.open("POST", "https://www.teamspirit.uk.com/xmas2019/scores");
+
+            XHR.setRequestHeader("Content-Type", "application/json");
+
+
+
+
+            XHR.send(jsonStr)
+
+
+        }
+
+        //validation
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        var forms = document.getElementsByClassName('needs-validation');
+        // Loop over them and prevent submission
+        var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+
+        // Access the form element...
+        let form = document.getElementById("myForm");
+
+        // ...and take over its submit event.
+        form.addEventListener("submit", function (event) {
+
+            event.preventDefault();
+
+                this.submit.disabled = true;
+                const json = serialize_form(this);
+                sendData(json);
+
+        });
+    });
+
+    window.removelb = function(){
+      $('.lbox').remove();
+    }
+</script>
+
+</html>
